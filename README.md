@@ -68,7 +68,6 @@ let map = new Map({
 
 sds.addLeftLayer(layer2);
 sds.addRightLayer(layer1);
-sds.remove();
 ```
 
 ### Limitations
