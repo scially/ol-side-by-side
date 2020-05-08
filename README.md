@@ -10,9 +10,10 @@ Creates a new Openlayers Control for comparing two layers or collections of laye
 
 | Method           | Returns        | Description   |
 | ----------       | -------------- | ------------- |
-| `addLeftLayer`  | `this`         | Add the layer for the left side  |
+| `addLeftLayer`   | `this`         | Add the layer for the left side  |
 | `addRightLayers` | `this`         | Add the layer for the right side |
-
+| `remove`         | `void`         | Close split screen |
+| `open`           | `void`         | Oepn(Reopen) split screen |
 ### Usage
 
 Add the script to the top of your page (css is included in the javascript):

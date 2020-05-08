@@ -19,13 +19,12 @@ export default class OlSideBySideControl extends Control {
         range.step = 'any'
         range.value = 0.5
         range.className = 'ol-side-by-side-range';
-        container.appendChild(divider);
-        container.appendChild(range);
+
         super({
             element: container,
         });
+        
 
-        //
         this._container = container;
         this._divider = divider;
         this._range = range;
@@ -33,7 +32,8 @@ export default class OlSideBySideControl extends Control {
         this._rightLayers = [];
         this._leftLayer = null;
         this._rightLayer = null;
-        this._addEvents();
+        
+        this.open();
     }
 
     _addEvents() {
@@ -155,9 +155,17 @@ export default class OlSideBySideControl extends Control {
     remove(){
         this._removeLayers(this._leftLayers);
         this._removeLayers(this._rightLayers);
-
+        this._leftLayer = [];
+        this._rightLayer = [];
         // remove div
-        this._container.parentNode.remove(this.container);
+        this._container.removeChild(this._divider);
+        this._container.removeChild(this._range);
+    }
+
+    open(){
+        this._container.appendChild(this._divider);
+        this._container.appendChild(this._range)
+        this._addEvents();
     }
     ///public end//////////////////////////////////////////////////////////////////////////////////////////////////
 }
