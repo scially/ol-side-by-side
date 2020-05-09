@@ -10,22 +10,23 @@ Creates a new Openlayers Control for comparing two layers or collections of laye
 
 | Method           | Returns        | Description   |
 | ----------       | -------------- | ------------- |
-| `addLeftLayer`   | `this`         | Add the layer for the left side  |
-| `addRightLayers` | `this`         | Add the layer for the right side |
+| `setLeftLayer`   | `this`         | Set the layer(s) for the left side  |
+| `setRightLayer`  | `this`         | Set the layer(s) for the right side |
 | `remove`         | `void`         | Close split screen |
 | `open`           | `void`         | Oepn(Reopen) split screen |
 ### Usage
 
-Add the script to the top of your page (css is included in the javascript):
+Add the script to the top of your page :
 
 ```html
 <script src="ol-side-by-side.min.js"></script>
+<link rel="stylesheet" href="ol-side-by-side.min.css"></link>
 ```
 
 Or if you are using browserify:
 
 ```js
-import SDSControl from '../src/index.js';
+import SDSControl from 'ol-side-by-side';
 ```
 Then create a map, add two layers to it, and create the SideBySide control and add it to the map:
 
@@ -66,8 +67,9 @@ let map = new Map({
     ]
 });
 
-sds.addLeftLayer(layer2);
-sds.addRightLayer(layer1);
+sds.open()
+sds.setLeftLayer(layer2);
+sds.setRightLayer(layer1);
 ```
 
 ### Limitations

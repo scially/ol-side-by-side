@@ -82,7 +82,7 @@ module.exports = function (env) {
             },  
             plugins: [
                 new MiniCssExtractPlugin({
-                    filename: 'ol-side-by-side.css',
+                    filename: 'ol-side-by-side.min.css',
                 })
             ]  
         }

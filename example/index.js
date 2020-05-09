@@ -34,6 +34,6 @@ let map = new Map({
         sds,
     ]
 });
-
-sds.addLeftLayer(layer2);
-sds.addRightLayer(layer1);
+sds.open();
+sds.setLeftLayer(layer2);
+sds.setRightLayer(layer1);

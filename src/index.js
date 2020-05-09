@@ -33,7 +33,7 @@ export default class OlSideBySideControl extends Control {
         this._leftLayer = null;
         this._rightLayer = null;
         
-        this.open();
+        //this.open();
     }
 
     _addEvents() {
@@ -55,20 +55,22 @@ export default class OlSideBySideControl extends Control {
     }
 
     _updateLayer(layers, layer) {
-        if (layers.indexOf(layer) >= 0) return;
-
-        let ind = this.getMap().getLayers().getArray().indexOf(layer);
-        if (ind >= 0) {
-            layer = this.getMap().getLayers().item(ind);
-        }else{
-            this.getMap().addLayer(layer);
-        }
-        layers.push({
-            'layer': layer,
-            'postrender': null,
-            'prerender': null,
+        let _layers = asArray(layer);
+        _layers.forEach( (layer)=>{
+            if (layers.indexOf(layer) >= 0) return;
+            let ind = this.getMap().getLayers().getArray().indexOf(layer);
+            if (ind >= 0) {
+                layer = this.getMap().getLayers().item(ind);
+            }else{
+                this.getMap().addLayer(layer);
+            }
+            layers.push({
+                'layer': layer,
+                'postrender': null,
+                'prerender': null,
+            });
         });
-
+        
         this._addLayerEvent(this._leftLayers, 'left');
         this._addLayerEvent(this._rightLayers, 'right');
 
@@ -99,6 +101,7 @@ export default class OlSideBySideControl extends Control {
             this.getMap().removeLayer(layer.layer);
         });
     }
+
     ///call back///////////////////////////////////////////////////////////////////////////////////////////////////
     _postrender(side) {
         return function (event) {
@@ -142,12 +145,14 @@ export default class OlSideBySideControl extends Control {
     ////call back end//////////////////////////////////////////////////////////////////////////////////////////////////
 
     ///public//////////////////////////////////////////////////////////////////////////////////////////////////
-    addLeftLayer(leftLayer) {
+    setLeftLayer(leftLayer) {
+        this._removeLayers(this._leftLayers);
         this._updateLayer(this._leftLayers, leftLayer);
         return this;
     }
 
-    addRightLayer(rightLayer) {
+    setRightLayer(rightLayer) {
+        this._removeLayers(this._rightLayers);
         this._updateLayer(this._rightLayers, rightLayer);
         return this;
     }
