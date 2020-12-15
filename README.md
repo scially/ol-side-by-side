@@ -8,12 +8,12 @@ Creates a new Openlayers Control for comparing two layers or collections of laye
 
 ### Methods
 
-| Method           | Returns        | Description   |
-| ----------       | -------------- | ------------- |
-| `setLeftLayer`   | `this`         | Set the layer(s) for the left side  |
-| `setRightLayer`  | `this`         | Set the layer(s) for the right side |
-| `remove`         | `void`         | Close split screen |
-| `open`           | `void`         | Oepn(Reopen) split screen |
+| Method          | Returns | Description                         |
+| --------------- | ------- | ----------------------------------- |
+| `setLeftLayer`  | `this`  | Set the layer(s) for the left side  |
+| `setRightLayer` | `this`  | Set the layer(s) for the right side |
+| `remove`        | `void`  | Close split screen                  |
+| `open`          | `void`  | Open(Reopen) split screen           |
 ### Usage
 
 Add the script to the top of your page :
