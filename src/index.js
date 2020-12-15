@@ -23,7 +23,7 @@ export default class OlSideBySideControl extends Control {
         super({
             element: container,
         });
-        
+
 
         this._container = container;
         this._divider = divider;
@@ -32,7 +32,7 @@ export default class OlSideBySideControl extends Control {
         this._rightLayers = [];
         this._leftLayer = null;
         this._rightLayer = null;
-        
+
         //this.open();
     }
 
@@ -56,12 +56,12 @@ export default class OlSideBySideControl extends Control {
 
     _updateLayer(layers, layer) {
         let _layers = asArray(layer);
-        _layers.forEach( (layer)=>{
+        _layers.forEach((layer) => {
             if (layers.indexOf(layer) >= 0) return;
             let ind = this.getMap().getLayers().getArray().indexOf(layer);
             if (ind >= 0) {
                 layer = this.getMap().getLayers().item(ind);
-            }else{
+            } else {
                 this.getMap().addLayer(layer);
             }
             layers.push({
@@ -70,34 +70,38 @@ export default class OlSideBySideControl extends Control {
                 'prerender': null,
             });
         });
-        
+
         this._addLayerEvent(this._leftLayers, 'left');
         this._addLayerEvent(this._rightLayers, 'right');
 
         this._updateClip();
     }
 
-    _addLayerEvent(layers, side){
+    _addLayerEvent(layers, side) {
         layers.forEach((layer) => {
-            if (!layer.prerender || !layer.postrender) {
+            if (layer.prerender) {
                 layer.layer.un('postrender', layer.postrender);
-                layer.layer.un('prerender', layer.prerender);
                 layer.postrender = null;
+            }
+            if (layer.postrender) {
+                layer.layer.un('prerender', layer.prerender);
                 layer.prerender = null;
-            };
+            }
             layer.postrender = layer.layer.on('postrender', this._postrender(side));
             layer.prerender = layer.layer.on('prerender', this._prerender(side));
         });
     }
 
-    _removeLayers(layers){
+    _removeLayers(layers) {
         layers.forEach((layer) => {
-            if (!layer.prerender || !layer.postrender) {
+            if (layer.prerender) {
                 layer.layer.un('postrender', layer.postrender);
-                layer.layer.un('prerender', layer.prerender);
                 layer.postrender = null;
-                layer.prerender = null;
             };
+            if (layer.postrender) {
+                layer.layer.un('prerender', layer.prerender);
+                layer.prerender = null;
+            }
             this.getMap().removeLayer(layer.layer);
         });
     }
@@ -117,14 +121,14 @@ export default class OlSideBySideControl extends Control {
             let mapSize = that.getMap().getSize();
             let width = that._getPosition();
             let tl, tr, bl, br;
-            switch(side){
+            switch (side) {
                 case "left":
                     tl = getRenderPixel(event, [0, 0]);
                     tr = getRenderPixel(event, [width, 0]);
                     bl = getRenderPixel(event, [width, mapSize[1]]);
                     br = getRenderPixel(event, [0, mapSize[1]]);
                     break;
-                case "right": 
+                case "right":
                     tl = getRenderPixel(event, [width, 0]);
                     tr = getRenderPixel(event, [mapSize[0], 0]);
                     bl = getRenderPixel(event, mapSize);
@@ -157,7 +161,7 @@ export default class OlSideBySideControl extends Control {
         return this;
     }
 
-    remove(){
+    remove() {
         this._removeLayers(this._leftLayers);
         this._removeLayers(this._rightLayers);
         this._leftLayer = [];
@@ -167,7 +171,7 @@ export default class OlSideBySideControl extends Control {
         this._container.removeChild(this._range);
     }
 
-    open(){
+    open() {
         this._container.appendChild(this._divider);
         this._container.appendChild(this._range)
         this._addEvents();

@@ -4,11 +4,16 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --env.mode=test",
     "build": "webpack --env.mode=build"
   },
-  "keywords": ["openlayers", "ol", "side by side", "split", "screen"],
+  "keywords": [
+    "openlayers",
+    "ol",
+    "side by side",
+    "split",
+    "screen"
+  ],
   "author": "hwang",
   "license": "Apache2",
   "devDependencies": {
