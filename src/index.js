@@ -169,12 +169,15 @@ export default class OlSideBySideControl extends Control {
         // remove div
         this._container.removeChild(this._divider);
         this._container.removeChild(this._range);
+        window.removeEventListener("resize", this._updateOnResize);
     }
-
+    
     open() {
         this._container.appendChild(this._divider);
-        this._container.appendChild(this._range)
+        this._container.appendChild(this._range);
         this._addEvents();
+        this._updateOnResize = this._updateClip.bind(this);
+        window.addEventListener("resize", this._updateOnResize);
     }
     ///public end//////////////////////////////////////////////////////////////////////////////////////////////////
 }
